@@ -1,0 +1,115 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+header h1 {
+    text-align: center;
+    color: #ff4500;
+}
+
+/* Bài viết */
+.post {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.vote-btn, .comment-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.upvote {
+    background: #ff4500;
+    color: white;
+}
+
+.downvote {
+    background: #ccc;
+}
+
+.comment-btn {
+    background: #007bff;
+    color: white;
+}
+
+.comment-btn:hover {
+    background: #0056b3;
+}
+
+/* Bình luận */
+.comments {
+    margin-top: 20px;
+}
+
+.comments h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.comment {
+    background: #eef;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+/* Form bình luận */
+.comment-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+}
+
+.comment-form button {
+    background: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.comment-form button:hover {
+    background: #218838;
+}

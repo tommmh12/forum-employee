@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thông Tin Nhân Viên</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4e73df;
+      --secondary: #2e59d9;
+      --light: #f8f9fc;
+      --dark: #5a5c69;
+      --danger: #e74a3b;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fc;
+      color: var(--dark);
+    }
+    
+    .navbar {
+      background: white;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+    
+    .user-menu {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .user-name {
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+      border-radius: 5px;
+      min-width: 200px;
+      display: none;
+      z-index: 1000;
+    }
+    
+    .dropdown-menu.show {
+      display: block;
+    }
+    
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    
+    .dropdown-item:hover {
+      background: var(--light);
+    }
+    
+    .back-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .page-title {
+      color: var(--primary);
+    }
+    
+    .employee-container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+      padding: 1.5rem;
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .tabs-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tabs {
+      display: flex;
+    }
+    
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--dark);
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .tab.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .employee-header {
+      flex: 1;
+      border-right: 1px solid #eee;
+      padding-right: 2rem;
+    }
+    
+    .employee-avatar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .employee-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .employee-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .avatar-upload {
+      background: var(--primary);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      gap: 5px;
+    }
+    
+    .employee-info {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    
+    .employee-name {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .employee-meta {
+      color: #6c757d;
+      margin-bottom: 10px;
+    }
+    
+    .employee-department {
+      display: inline-block;
+      background: var(--light);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-right: 10px;
+    }
+    
+    .employee-role {
+      display: inline-block;
+      background: #e8f4fd;
+      color: var(--primary);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .employee-details {
+      flex: 2;
+    }
+    
+    .info-section {
+      margin-bottom: 2rem;
+    }
+    
+    .info-section h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .detail-group {
+      margin-bottom: 1rem;
+    }
+    
+    .detail-label {
+      font-weight: 500;
+      color: #6c757d;
+      margin-bottom: 5px;
+      display: block;
+    }
+    
+    .detail-value {
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 5px;
+      font-size: 0.95rem;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 2rem;
+    }
+    
+    .edit-btn, .change-password-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .save-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+    
+    .cancel-btn {
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+    
+    input[type="text"], input[type="email"], input[type="tel"], input[type="password"], textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+    
+    .change-password-form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .form-group label {
+      font-weight: 500;
+      color: #6c757d;
+      margin-bottom: 5px;
+      display: block;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    
+    .employees-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .employee-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+      padding: 1.5rem;
+      transition: transform 0.3s;
+    }
+    
+    .employee-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 1rem;
+    }
+    
+    .card-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    
+    .card-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .card-name {
+      font-weight: 600;
+    }
+    
+    .card-department {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    
+    .card-details {
+      font-size: 0.9rem;
+    }
+    
+    .card-detail {
+      margin-bottom: 5px;
+    }
+    
+    .view-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-users"></i>
+      <span>THÔNG TIN NHÂN VIÊN</span>
+    </div>
+    
+    <div class="user-menu">
+      <button class="back-btn" id="backBtn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Quay lại</span>
+      </button>
+      <div class="user-info" id="userInfo">
+        <div class="user-avatar" id="userAvatar">
+          <img id="userAvatarImg" src="" alt="Avatar">
+        </div>
+        <span class="user-name" id="userName"></span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="/employee-info" class="dropdown-item">
+          <i class="fas fa-user"></i> Thông tin nhân viên
+        </a>
+        <a href="/employee-profile" class="dropdown-item">
+          <i class="fas fa-address-card"></i> Hồ sơ nhân viên
+        </a>
+        <a href="#" class="dropdown-item" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Đăng xuất
+        </a>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title" id="pageTitle">Thông tin nhân viên</h1>
+    </div>
+    
+    <div id="employeeDetailContainer" class="employee-container">
+      <!-- Nội dung chi tiết nhân viên sẽ được thêm bằng JavaScript -->
+    </div>
+    
+    <div id="employeesListContainer" class="employees-list" style="display: none;">
+      <!-- Danh sách nhân viên sẽ được thêm bằng JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let isManagerView = false;
+    let currentEmployee = null;
+    
+    // Khởi tạo khi trang load
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Lấy thông tin user
+      try {
+        const response = await fetch('/api/user', {
+          credentials: 'include'
+        });
+        
+        if (!response.ok) {
+          window.location.href = '/';
+          return;
+        }
+        
+        currentUser = await response.json();
+        updateUserInfo(currentUser);
+        
+        // Kiểm tra xem có phải là trang của manager không
+        isManagerView = currentUser.Role === 'Manager';
+        
+        if (isManagerView) {
+          document.getElementById('pageTitle').textContent = 'Quản lý nhân viên phòng ban';
+          loadEmployeesList();
+        } else {
+          loadEmployeeDetail(currentUser.EmpID);
+        }
+      } catch (error) {
+        console.error('Lỗi:', error);
+        window.location.href = '/';
+      }
+      
+      // Xử lý hiển thị/ẩn dropdown menu
+      const userInfo = document.getElementById('userInfo');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+
+      userInfo.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('show');
+      });
+
+      // Ẩn dropdown khi nhấp ra ngoài
+      document.addEventListener('click', (e) => {
+        if (!userInfo.contains(e.target)) {
+          dropdownMenu.classList.remove('show');
+        }
+      });
+      
+      // Xử lý nút quay lại
+      document.getElementById('backBtn').addEventListener('click', () => {
+        window.location.href = '/forum';
+      });
+      
+      // Xử lý đăng xuất
+      document.getElementById('logoutBtn').addEventListener('click', logout);
+    });
+    
+    // Cập nhật thông tin user trên navbar
+    function updateUserInfo(user) {
+      const avatarImg = document.getElementById('userAvatarImg');
+      const userName = document.getElementById('userName');
+      
+      // Hiển thị tên người dùng
+      userName.textContent = `${user.FirstName} ${user.LastName}`;
+      
+      // Hiển thị avatar
+      if (user.Photo) {
+        avatarImg.src = `/uploads/${user.Photo}`;
+      } else {
+        const avatarDiv = document.getElementById('userAvatar');
+        avatarDiv.innerHTML = user.FirstName.charAt(0) + user.LastName.charAt(0);
+        avatarDiv.style.display = 'flex';
+        avatarDiv.style.alignItems = 'center';
+        avatarDiv.style.justifyContent = 'center';
+        avatarDiv.style.backgroundColor = '#4e73df';
+        avatarDiv.style.color = 'white';
+        avatarDiv.style.fontWeight = 'bold';
+      }
+    }
+    
+    // Tải danh sách nhân viên (cho trưởng phòng)
+    async function loadEmployeesList() {
+      try {
+        const response = await fetch('/api/employees', {
+          credentials: 'include'
+        });
+        
+        if (!response.ok) {
+          throw new Error('Lỗi tải danh sách nhân viên');
+        }
+        
+        const employees = await response.json();
+        renderEmployeesList(employees);
+      } catch (error) {
+        console.error('Lỗi:', error);
+        alert(error.message);
+      }
+    }
+    
+    // Hiển thị danh sách nhân viên
+    function renderEmployeesList(employees) {
+      const container = document.getElementById('employeesListContainer');
+      const detailContainer = document.getElementById('employeeDetailContainer');
+      
+      detailContainer.style.display = 'none';
+      container.style.display = 'grid';
+      container.innerHTML = '';
+      
+      if (employees.length === 0) {
+        container.innerHTML = '<p>Không có nhân viên nào trong phòng ban</p>';
+        return;
+      }
+      
+      employees.forEach(employee => {
+        const employeeCard = createEmployeeCard(employee);
+        container.appendChild(employeeCard);
+      });
+    }
+    
+    // Tạo thẻ nhân viên cho danh sách
+    function createEmployeeCard(employee) {
+      const card = document.createElement('div');
+      card.className = 'employee-card';
+      
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-avatar">
+            ${employee.Photo ? 
+              `<img src="/uploads/${employee.Photo}" alt="${employee.FirstName} ${employee.LastName}">` : 
+              `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#4e73df;color:white;font-weight:bold">
+                ${employee.FirstName.charAt(0)}${employee.LastName.charAt(0)}
+              </div>`
+            }
+          </div>
+          <div>
+            <div class="card-name">${employee.FirstName} ${employee.LastName}</div>
+            <div class="card-department">${employee.Department}</div>
+          </div>
+        </div>
+        <div class="card-details">
+          <div class="card-detail"><i class="fas fa-envelope"></i> ${employee.Email}</div>
+          <div class="card-detail"><i class="fas fa-phone"></i> ${employee.Telephone || 'Chưa cập nhật'}</div>
+          <div class="card-detail"><i class="fas fa-briefcase"></i> ${employee.ChucVu || 'Nhân viên'}</div>
+        </div>
+        <button class="view-btn" data-emp-id="${employee.EmpID}">
+          <i class="fas fa-eye"></i> Xem chi tiết
+        </button>
+      `;
+      
+      // Thêm sự kiện click cho nút xem chi tiết
+      card.querySelector('.view-btn').addEventListener('click', (e) => {
+        const empId = e.currentTarget.dataset.empId;
+        loadEmployeeDetail(empId);
+      });
+      
+      return card;
+    }
+    
+    // Tải chi tiết nhân viên
+    async function loadEmployeeDetail(empId) {
+        try {
+            const response = await fetch(`/api/employees?empId=${empId}`, {
+            credentials: 'include'
+            });
+
+            if (!response.ok) {
+            throw new Error('Lỗi tải thông tin nhân viên');
+            }
+
+            const employees = await response.json();
+            if (employees.length === 0) {
+            throw new Error('Không tìm thấy nhân viên');
+            }
+
+            // Đảm bảo rằng nhân viên được trả về có EmpID khớp với empId yêu cầu
+            const employee = employees.find(emp => emp.EmpID === empId);
+            if (!employee) {
+            throw new Error('Không tìm thấy nhân viên với EmpID này');
+            }
+
+            currentEmployee = employee;
+            renderEmployeeDetail(currentEmployee);
+
+            // Ẩn danh sách và hiển thị chi tiết
+            document.getElementById('employeesListContainer').style.display = 'none';
+            document.getElementById('employeeDetailContainer').style.display = 'flex';
+        } catch (error) {
+            console.error('Lỗi:', error);
+            alert(error.message);
+        }
+        }
+    
+    // Hiển thị chi tiết nhân viên
+    function renderEmployeeDetail(employee) {
+      const container = document.getElementById('employeeDetailContainer');
+      const isEditable = currentUser.Role === 'Manager' && currentUser.Department === employee.Department;
+      
+      container.innerHTML = `
+        <div class="employee-header">
+          <div class="employee-avatar-container">
+            <div class="employee-avatar">
+              ${employee.Photo ? 
+                `<img src="/uploads/${employee.Photo}" alt="${employee.FirstName} ${employee.LastName}">` : 
+                `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#4e73df;color:white;font-weight:bold">
+                  ${employee.FirstName.charAt(0)}${employee.LastName.charAt(0)}
+                </div>`
+              }
+            </div>
+            ${isEditable ? `
+              <div class="avatar-upload" id="avatarUploadBtn">
+                <i class="fas fa-camera"></i>
+                <span>Chỉnh sửa</span>
+                <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
+              </div>
+            ` : ''}
+          </div>
+          <div class="employee-info">
+            <h2 class="employee-name" id="employeeName">${employee.FirstName} ${employee.LastName}</h2>
+            <div class="employee-meta">
+              <span class="employee-department">${employee.Department}</span>
+              <span class="employee-role">${employee.ChucVu || 'Nhân viên'}</span>
+            </div>
+            <div class="employee-meta">
+              <span><i class="fas fa-envelope"></i> ${employee.Email}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="employee-details">
+          <div class="tabs-container">
+            <div class="tabs">
+              <div class="tab active" data-tab="personal-info">Thông tin cá nhân</div>
+              <div class="tab" data-tab="change-password">Đổi mật khẩu</div>
+            </div>
+            ${isManagerView ? `
+              <button class="back-btn" id="backToListBtn">
+                <i class="fas fa-arrow-left"></i> Quay lại danh sách
+              </button>
+            ` : ''}
+          </div>
+          
+          <div id="personal-info" class="tab-content active">
+            <div class="info-section">
+              <h3>Thông tin cá nhân</h3>
+              <div class="info-grid">
+                <div class="detail-group">
+                  <label class="detail-label">Họ</label>
+                  <div class="detail-value" id="lastNameView">${employee.LastName}</div>
+                  <input type="text" class="detail-value" id="lastNameEdit" value="${employee.LastName}" style="display: none;">
+                </div>
+                <div class="detail-group">
+                  <label class="detail-label">Tên</label>
+                  <div class="detail-value" id="firstNameView">${employee.FirstName}</div>
+                  <input type="text" class="detail-value" id="firstNameEdit" value="${employee.FirstName}" style="display: none;">
+                </div>
+                <div class="detail-group">
+                  <label class="detail-label">Giới tính</label>
+                  <div class="detail-value">${employee.Gender || 'Chưa cập nhật'}</div>
+                </div>
+                <div class="detail-group">
+                  <label class="detail-label">Ngày sinh</label>
+                  <div class="detail-value">${employee.Birthdate ? new Date(employee.Birthdate).toLocaleDateString('vi-VN') : 'Chưa cập nhật'}</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="info-section">
+              <h3>Thông tin liên hệ</h3>
+              <div class="info-grid">
+                <div class="detail-group">
+                  <label class="detail-label">Điện thoại</label>
+                  <div class="detail-value" id="telephoneView">${employee.Telephone || 'Chưa cập nhật'}</div>
+                  <input type="tel" class="detail-value" id="telephoneEdit" value="${employee.Telephone || ''}" style="display: none;">
+                </div>
+                <div class="detail-group">
+                  <label class="detail-label">Địa chỉ</label>
+                  <div class="detail-value" id="addressView">${employee.Address_loc || 'Chưa cập nhật'}</div>
+                  <textarea class="detail-value" id="addressEdit" style="display: none;">${employee.Address_loc || ''}</textarea>
+                </div>
+              </div>
+            </div>
+            
+            <div class="info-section">
+              <h3>Thông tin công việc</h3>
+              <div class="info-grid">
+                <div class="detail-group">
+                  <label class="detail-label">Mã nhân viên</label>
+                  <div class="detail-value">${employee.EmpID}</div>
+                </div>
+                <div class="detail-group">
+                  <label class="detail-label">Chức vụ</label>
+                  <div class="detail-value">${employee.ChucVu || 'Nhân viên'}</div>
+                </div>
+                <div class="detail-group">
+                  <label class="detail-label">Cấp bậc</label>
+                  <div class="detail-value">${employee.CapBac || 'Chưa cập nhật'}</div>
+                </div>
+                <div class="detail-group">
+                  <label class="detail-label">Ngày tham gia</label>
+                  <div class="detail-value">${employee.NgayThamGia ? new Date(employee.NgayThamGia).toLocaleDateString('vi-VN') : 'Chưa cập nhật'}</div>
+                </div>
+                <div class="detail-group">
+                  <label class="detail-label">Tình trạng</label>
+                  <div class="detail-value">${employee.Status || 'Chưa cập nhật'}</div>
+                </div>
+              </div>
+            </div>
+            
+            ${isEditable ? `
+              <div class="action-buttons">
+                <button class="edit-btn" id="editBtn">
+                  <i class="fas fa-edit"></i> Chỉnh sửa thông tin
+                </button>
+                <button class="save-btn" id="saveBtn">
+                  <i class="fas fa-save"></i> Lưu thay đổi
+                </button>
+                <button class="cancel-btn" id="cancelBtn">
+                  <i class="fas fa-times"></i> Hủy
+                </button>
+              </div>
+            ` : ''}
+          </div>
+          
+          <div id="change-password" class="tab-content">
+            <div class="change-password-form">
+              <div class="form-group">
+                <label for="oldPassword">Mật khẩu cũ</label>
+                <input type="password" id="oldPassword" placeholder="Nhập mật khẩu cũ">
+              </div>
+              <div class="form-group">
+                <label for="newPassword">Mật khẩu mới</label>
+                <input type="password" id="newPassword" placeholder="Nhập mật khẩu mới">
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Xác nhận mật khẩu mới</label>
+                <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu mới">
+              </div>
+              <div class="action-buttons">
+                <button class="change-password-btn" id="changePasswordBtn">
+                  <i class="fas fa-lock"></i> Đổi mật khẩu
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Xử lý chuyển đổi tab
+      const tabs = document.querySelectorAll('.tab');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+      });
+      
+      // Thêm sự kiện cho nút chỉnh sửa (nếu có quyền)
+      if (isEditable) {
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        
+        editBtn.addEventListener('click', () => {
+          // Chuyển sang chế độ chỉnh sửa
+          document.getElementById('lastNameView').style.display = 'none';
+          document.getElementById('lastNameEdit').style.display = 'block';
+          document.getElementById('firstNameView').style.display = 'none';
+          document.getElementById('firstNameEdit').style.display = 'block';
+          document.getElementById('telephoneView').style.display = 'none';
+          document.getElementById('telephoneEdit').style.display = 'block';
+          document.getElementById('addressView').style.display = 'none';
+          document.getElementById('addressEdit').style.display = 'block';
+          
+          editBtn.style.display = 'none';
+          saveBtn.style.display = 'inline-block';
+          cancelBtn.style.display = 'inline-block';
+        });
+        
+        cancelBtn.addEventListener('click', () => {
+          // Hủy chế độ chỉnh sửa
+          document.getElementById('lastNameView').style.display = 'block';
+          document.getElementById('lastNameEdit').style.display = 'none';
+          document.getElementById('firstNameView').style.display = 'block';
+          document.getElementById('firstNameEdit').style.display = 'none';
+          document.getElementById('telephoneView').style.display = 'block';
+          document.getElementById('telephoneEdit').style.display = 'none';
+          document.getElementById('addressView').style.display = 'block';
+          document.getElementById('addressEdit').style.display = 'none';
+          
+          editBtn.style.display = 'inline-block';
+          saveBtn.style.display = 'none';
+          cancelBtn.style.display = 'none';
+        });
+        
+        saveBtn.addEventListener('click', async () => {
+          // Lưu thay đổi
+          const lastName = document.getElementById('lastNameEdit').value.trim();
+          const firstName = document.getElementById('firstNameEdit').value.trim();
+          const telephone = document.getElementById('telephoneEdit').value.trim();
+          const address = document.getElementById('addressEdit').value.trim();
+          
+          if (!lastName || !firstName) {
+            alert('Họ và tên không được để trống');
+            return;
+          }
+          
+          try {
+            const response = await fetch(`/api/employees/${employee.EmpID}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                FirstName: firstName,
+                LastName: lastName,
+                Telephone: telephone,
+                Address_loc: address
+              }),
+              credentials: 'include'
+            });
+            
+            if (!response.ok) {
+              throw new Error(await response.text());
+            }
+            
+            // Cập nhật lại thông tin hiển thị
+            currentEmployee.FirstName = firstName;
+            currentEmployee.LastName = lastName;
+            currentEmployee.Telephone = telephone;
+            currentEmployee.Address_loc = address;
+            
+            document.getElementById('employeeName').textContent = `${firstName} ${lastName}`;
+            document.getElementById('lastNameView').textContent = lastName;
+            document.getElementById('firstNameView').textContent = firstName;
+            document.getElementById('telephoneView').textContent = telephone || 'Chưa cập nhật';
+            document.getElementById('addressView').textContent = address || 'Chưa cập nhật';
+            
+            // Quay lại chế độ xem
+            cancelBtn.click();
+            
+            alert('Cập nhật thông tin thành công');
+          } catch (error) {
+            console.error('Lỗi:', error);
+            alert('Lỗi khi cập nhật: ' + error.message);
+          }
+        });
+        
+        // Xử lý upload avatar
+        const uploadBtn = document.getElementById('avatarUploadBtn');
+        const uploadInput = document.getElementById('avatarUploadInput');
+        
+        uploadBtn.addEventListener('click', () => {
+          uploadInput.click();
+        });
+        
+        uploadInput.addEventListener('change', async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          
+          const formData = new FormData();
+          formData.append('file', file);
+          
+          try {
+            const response = await fetch('/api/upload', {
+              method: 'POST',
+              body: formData,
+              credentials: 'include'
+            });
+            
+            if (!response.ok) {
+              throw new Error('Lỗi upload ảnh');
+            }
+            
+            const result = await response.json();
+            if (result.success) {
+              // Cập nhật ảnh đại diện
+              const avatarImg = document.querySelector('.employee-avatar img');
+              if (avatarImg) {
+                avatarImg.src = `/uploads/${result.fileName}`;
+              } else {
+                const avatarDiv = document.querySelector('.employee-avatar div');
+                avatarDiv.innerHTML = `<img src="/uploads/${result.fileName}" alt="${employee.FirstName} ${employee.LastName}">`;
+              }
+              
+              // Cập nhật ảnh trong navbar nếu là user hiện tại
+              if (employee.EmpID === currentUser.EmpID) {
+                const navAvatar = document.getElementById('userAvatarImg');
+                if (navAvatar) {
+                  navAvatar.src = `/uploads/${result.fileName}`;
+                }
+              }
+              
+              alert('Cập nhật ảnh đại diện thành công');
+            }
+          } catch (error) {
+            console.error('Lỗi:', error);
+            alert('Lỗi khi upload ảnh: ' + error.message);
+          }
+        });
+      }
+      
+      // Xử lý đổi mật khẩu
+      const changePasswordBtn = document.getElementById('changePasswordBtn');
+      changePasswordBtn.addEventListener('click', async () => {
+        const oldPassword = document.getElementById('oldPassword').value.trim();
+        const newPassword = document.getElementById('newPassword').value.trim();
+        const confirmPassword = document.getElementById('confirmPassword').value.trim();
+        
+        if (!oldPassword || !newPassword || !confirmPassword) {
+          alert('Vui lòng điền đầy đủ thông tin');
+          return;
+        }
+        
+        if (newPassword !== confirmPassword) {
+          alert('Mật khẩu mới và xác nhận mật khẩu không khớp');
+          return;
+        }
+        
+        try {
+          const response = await fetch('/api/change-password', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              oldPassword,
+              newPassword
+            }),
+            credentials: 'include'
+          });
+          
+          if (!response.ok) {
+            throw new Error(await response.text());
+          }
+          
+          alert('Đổi mật khẩu thành công');
+          document.getElementById('oldPassword').value = '';
+          document.getElementById('newPassword').value = '';
+          document.getElementById('confirmPassword').value = '';
+        } catch (error) {
+          console.error('Lỗi:', error);
+          alert('Lỗi khi đổi mật khẩu: ' + error.message);
+        }
+      });
+      
+      // Xử lý nút quay lại danh sách
+      if (isManagerView) {
+        const backToListBtn = document.getElementById('backToListBtn');
+        backToListBtn.addEventListener('click', () => {
+          loadEmployeesList();
+        });
+      }
+    }
+    
+    // Đăng xuất
+    async function logout() {
+      try {
+        const response = await fetch('/api/logout', {
+          method: 'POST',
+          credentials: 'include'
+        });
+        
+        if (response.ok) {
+          window.location.href = '/';
+        }
+      } catch (error) {
+        console.error('Lỗi:', error);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập | Forum Nội Bộ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4e73df;
+      --secondary: #2e59d9;
+      --light: #f8f9fc;
+      --dark: #5a5c69;
+      --success: #1cc88a;
+      --danger: #e74a3b;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 450px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .login-header {
+      background: var(--primary);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .login-header h1 {
+      font-weight: 500;
+      font-size: 1.8rem;
+    }
+    
+    .login-body {
+      padding: 2rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #d1d3e2;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+    }
+    
+    .btn:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+    }
+    
+    .alert {
+      padding: 12px;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    
+    .alert-danger {
+      background: #f8d7da;
+      color: var(--danger);
+      border: 1px solid #f5c6cb;
+    }
+    
+    .footer-text {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--dark);
+      font-size: 0.9rem;
+    }
+    
+    .input-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #d1d3e2;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .company-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1rem;
+      display: block;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <img src="../SEN.png" alt="Company Logo" class="company-logo">
+      <h1>ĐĂNG NHẬP HỆ THỐNG</h1>
+    </div>
+    
+    <div class="login-body">
+      <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div style="position: relative;">
+            <input type="email" id="email" class="form-control" placeholder="Nhập email của bạn" required>
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <div style="position: relative;">
+            <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu" required>
+            <i class="fas fa-lock input-icon"></i>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn">
+          <i class="fas fa-sign-in-alt"></i> ĐĂNG NHẬP
+        </button>
+      </form>
+      
+      <div class="footer-text">
+        Hệ thống Forum Nội Bộ &copy; 2023
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorElement = document.getElementById('errorMessage');
+      
+      // Ẩn thông báo lỗi cũ
+      errorElement.style.display = 'none';
+      
+      // Hiệu ứng loading
+      const btn = e.target.querySelector('button');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang đăng nhập...';
+      btn.disabled = true;
+      
+      fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include'
+      })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(err => { throw err; });
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.success) {
+          // Lưu thông tin user vào localStorage
+          localStorage.setItem('currentUser', JSON.stringify(data.user));
+          
+          // Chuyển hướng sang trang forum
+          window.location.href = '/forum';
+        } else {
+          throw new Error(data.message || 'Đăng nhập thất bại');
+        }
+      })
+      .catch(error => {
+        // Hiển thị thông báo lỗi
+        errorElement.textContent = error.message;
+        errorElement.style.display = 'block';
+        
+        // Hiệu ứng lỗi
+        btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Thử lại';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>
