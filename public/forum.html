@@ -697,45 +697,39 @@
       }
 
       .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
       }
 
       .sidebar.collapsed {
-        width: 100%;
-      }
-
-      .sidebar.collapsed .sidebar-item a {
-        justify-content: flex-start;
-      }
-
-      .sidebar.collapsed .sidebar-item span {
-        display: inline;
+        width: 60px;
       }
 
       .navbar {
-        margin-left: 0;
-        width: 100%;
+        margin-left: 250px;
+        width: calc(100% - 250px);
       }
 
       .sidebar-collapsed .navbar {
-        margin-left: 0;
-        width: 100%;
+        margin-left: 60px;
+        width: calc(100% - 60px);
       }
 
       .main-container {
-        flex-direction: column;
-        margin-left: 0;
-        width: 100%;
+        margin-left: 250px;
+        width: calc(100% - 250px);
       }
 
       .sidebar-collapsed .main-container {
-        margin-left: 0;
-        width: 100%;
+        margin-left: 60px;
+        width: calc(100% - 60px);
       }
 
-      .forum-section, .blog-section {
+      .forum-section,
+      .blog-section {
         max-width: 100%;
       }
     }
@@ -897,6 +891,7 @@
       const toggleBtn = document.getElementById('toggleBtn');
       const body = document.body;
 
+      // Toggle sidebar (áp dụng cho cả desktop và mobile)
       toggleBtn.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
         body.classList.toggle('sidebar-collapsed');
