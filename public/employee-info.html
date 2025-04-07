@@ -487,20 +487,23 @@
         const response = await fetch('/api/user', {
           credentials: 'include'
         });
-        
+
         if (!response.ok) {
           window.location.href = '/';
           return;
         }
-        
+
         currentUser = await response.json();
         updateUserInfo(currentUser);
-        
+
         // Kiểm tra xem có phải là trang của manager không
         isManagerView = currentUser.Role === 'Manager';
-        
+
         if (isManagerView) {
-          document.getElementById('pageTitle').textContent = 'Quản lý nhân viên phòng ban';
+          // Gán tiêu đề bao gồm tên phòng ban
+          const departmentName = currentUser.Department || 'phòng ban';
+          document.getElementById('pageTitle').textContent = `Quản lý phòng ban ${departmentName}`;
+
           loadEmployeesList();
         } else {
           loadEmployeeDetail(currentUser.EmpID);

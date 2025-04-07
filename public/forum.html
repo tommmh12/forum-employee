@@ -13,6 +13,7 @@
       --light: #f8f9fc;
       --dark: #5a5c69;
       --danger: #e74a3b;
+      --success: #1cc88a;
     }
 
     * {
@@ -222,12 +223,41 @@
     }
 
     .forum-section {
-      flex: 2;
+      flex: 7;
     }
 
     .blog-section {
-      flex: 1;
+      flex: 4;
       max-width: 350px;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+
+    .search-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     /* Post Form */
@@ -258,6 +288,18 @@
       resize: vertical;
     }
 
+    .post-image-upload {
+      margin-bottom: 12px;
+    }
+
+    .post-image-preview {
+      max-width: 200px;
+      max-height: 200px;
+      margin-top: 10px;
+      display: none;
+      border-radius: 5px;
+    }
+
     .post-btn {
       background: var(--primary);
       color: white;
@@ -281,6 +323,11 @@
       box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
       padding: 1.5rem;
       position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .post:hover {
+      transform: translateY(-5px);
     }
 
     .post-header {
@@ -326,6 +373,22 @@
       white-space: pre-line;
     }
 
+    .post-image {
+      max-width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .post-stats {
+      display: flex;
+      gap: 15px;
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
     .post-footer {
       display: flex;
       gap: 15px;
@@ -343,10 +406,15 @@
       cursor: pointer;
       padding: 5px 10px;
       border-radius: 5px;
+      transition: background 0.3s;
     }
 
     .action-btn:hover {
       background: #f8f9fa;
+    }
+
+    .action-btn.liked {
+      color: var(--primary);
     }
 
     /* Comments */
@@ -458,6 +526,11 @@
       display: flex;
       gap: 1rem;
       align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .blog-post:hover {
+      transform: translateY(-3px);
     }
 
     .blog-post img {
@@ -505,7 +578,7 @@
       background: white;
       box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
       border-radius: 5px;
-      min-width: 100px;
+      min-width: 120px;
       display: none;
       z-index: 1000;
     }
@@ -528,6 +601,93 @@
 
     .options-item.delete {
       color: var(--danger);
+    }
+
+    .options-item.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 2rem;
+    }
+
+    .page-btn {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .page-btn:hover {
+      background: var(--light);
+    }
+
+    .page-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .page-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Delete Requests Section */
+    .delete-requests {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+      padding: 1.5rem;
+    }
+
+    .requests-list {
+      margin-top: 1rem;
+    }
+
+    .request-item {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    }
+
+    .request-info p {
+      margin: 5px 0;
+    }
+
+    .request-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .approve-btn {
+      background: var(--success);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .reject-btn {
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     /* Responsive Design */
@@ -597,9 +757,9 @@
         </a>
       </li>
       <li class="sidebar-item">
-        <a href="/requests-list">
+        <a href="/employee-info">
           <i class="fas fa-list"></i>
-          <span>Danh sách đơn & phiếu</span>
+          <span>Thông tin phòng ban</span>
         </a>
       </li>
       <li class="sidebar-item">
@@ -638,6 +798,12 @@
           <span>Sổ đỏ đào tạo</span>
         </a>
       </li>
+      <li class="sidebar-item" id="deleteRequestsMenu" style="display: none;">
+        <a href="/delete-requests">
+          <i class="fas fa-trash-alt"></i>
+          <span>Yêu cầu xóa</span>
+        </a>
+      </li>
     </ul>
   </div>
 
@@ -674,10 +840,24 @@
   <div class="main-container">
     <!-- Forum Section -->
     <div class="forum-section">
+      <div class="search-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="Tìm kiếm bài viết...">
+        <button class="search-btn" id="searchBtn">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
       <div class="post-form">
         <h2><i class="fas fa-pen-alt"></i> Tạo bài viết mới</h2>
         <input type="text" class="post-input" id="postTitle" placeholder="Tiêu đề">
         <textarea class="post-input post-content" id="postContent" placeholder="Nội dung bài viết"></textarea>
+        <div class="post-image-upload">
+          <label for="postImage" style="cursor: pointer;">
+            <i class="fas fa-image"></i> Thêm hình ảnh
+          </label>
+          <input type="file" id="postImage" accept="image/*" style="display: none;">
+          <img id="postImagePreview" class="post-image-preview" alt="Preview">
+        </div>
         <button class="post-btn" id="postBtn">
           <i class="fas fa-paper-plane"></i>
           <span>Đăng bài</span>
@@ -689,6 +869,8 @@
           <i class="fas fa-spinner fa-spin"></i> Đang tải bài viết...
         </div>
       </div>
+
+      <div class="pagination" id="pagination"></div>
     </div>
 
     <!-- Blog Section -->
@@ -702,6 +884,11 @@
 
   <script>
     let currentUser = null;
+    let deleteRequests = new Map();
+    let currentPage = 1;
+    const postsPerPage = 5;
+    let totalPosts = 0;
+    let searchQuery = '';
 
     // Khởi tạo khi trang load
     document.addEventListener('DOMContentLoaded', async () => {
@@ -737,8 +924,19 @@
 
         currentUser = await response.json();
         updateUserInfo(currentUser);
-        loadPosts();
-        loadBlogPosts();
+
+        // Hiển thị mục "Yêu cầu xóa" cho trưởng phòng
+        if (currentUser.Role === 'Manager') {
+          document.getElementById('deleteRequestsMenu').style.display = 'block';
+        }
+
+        // Kiểm tra nếu đang ở trang yêu cầu xóa
+        if (currentPath === '/delete-requests' && currentUser.Role === 'Manager') {
+          loadDeleteRequests();
+        } else {
+          loadPosts();
+          loadBlogPosts();
+        }
       } catch (error) {
         console.error('Lỗi:', error);
         window.location.href = '/';
@@ -765,6 +963,34 @@
 
       // Xử lý đăng bài
       document.getElementById('postBtn').addEventListener('click', createPost);
+
+      // Xử lý tìm kiếm
+      document.getElementById('searchBtn').addEventListener('click', () => {
+        searchQuery = document.getElementById('searchInput').value.trim();
+        currentPage = 1;
+        loadPosts();
+      });
+
+      document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          searchQuery = e.target.value.trim();
+          currentPage = 1;
+          loadPosts();
+        }
+      });
+
+      // Xử lý preview hình ảnh
+      const postImageInput = document.getElementById('postImage');
+      const postImagePreview = document.getElementById('postImagePreview');
+      postImageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          postImagePreview.src = URL.createObjectURL(file);
+          postImagePreview.style.display = 'block';
+        } else {
+          postImagePreview.style.display = 'none';
+        }
+      });
     });
 
     // Cập nhật thông tin user
@@ -791,7 +1017,7 @@
     // Tải danh sách bài viết forum
     async function loadPosts() {
       try {
-        const response = await fetch('/api/posts', {
+        const response = await fetch(`/api/posts?page=${currentPage}&limit=${postsPerPage}&search=${encodeURIComponent(searchQuery)}`, {
           credentials: 'include'
         });
 
@@ -799,8 +1025,10 @@
           throw new Error('Lỗi tải bài viết');
         }
 
-        const posts = await response.json();
-        renderPosts(posts);
+        const data = await response.json();
+        totalPosts = data.total;
+        renderPosts(data.posts);
+        renderPagination();
       } catch (error) {
         console.error('Lỗi:', error);
         document.getElementById('postsContainer').innerHTML = `
@@ -866,12 +1094,18 @@
         <div class="post-content" id="post-content-${post.PostID}">
           <h3 id="post-title-${post.PostID}">${post.Title}</h3>
           <p id="post-body-${post.PostID}">${post.Content}</p>
+          ${post.ImageURL ? `<img src="/uploads/${post.ImageURL}" alt="Post Image" class="post-image">` : ''}
+        </div>
+        
+        <div class="post-stats">
+          <span><i class="far fa-eye"></i> ${post.Views || 0} lượt xem</span>
+          <span><i class="far fa-thumbs-up"></i> ${post.Likes || 0} lượt thích</span>
         </div>
         
         <div class="post-footer">
-          <button class="action-btn">
+          <button class="action-btn like-btn ${post.userLikeStatus === true ? 'liked' : ''}" data-post-id="${post.PostID}" onclick="toggleLike(${post.PostID})">
             <i class="far fa-thumbs-up"></i>
-            <span>Thích</span>
+            <span>Thích (${post.Likes || 0})</span>
           </button>
           <button class="action-btn comment-toggle-btn" data-post-id="${post.PostID}">
             <i class="far fa-comment"></i>
@@ -888,24 +1122,39 @@
             </button>
           </div>
         </div>
-        ${isAuthor ? `
-          <div class="options-menu">
-            <button class="options-btn" onclick="toggleOptionsMenu('post-options-${post.PostID}')">
-              <i class="fas fa-ellipsis-h"></i>
-            </button>
-            <div class="options-dropdown" id="post-options-${post.PostID}">
+        <div class="options-menu">
+          <button class="options-btn" onclick="toggleOptionsMenu('post-options-${post.PostID}')">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <div class="options-dropdown" id="post-options-${post.PostID}">
+            ${isAuthor ? `
               <a href="#" class="options-item" onclick="editPost(${post.PostID}); return false;">Sửa</a>
-              <a href="#" class="options-item delete" onclick="deletePost(${post.PostID}); return false;">Xóa</a>
-            </div>
+            ` : ''}
+            <a href="#" class="options-item delete" id="delete-post-${post.PostID}" onclick="deletePost(${post.PostID}, '${post.Department}'); return false;">Xóa</a>
           </div>
-        ` : ''}
+        </div>
       `;
 
       // Thêm sự kiện toggle bình luận
       const toggleBtn = postElement.querySelector('.comment-toggle-btn');
       toggleBtn.addEventListener('click', () => toggleComments(post.PostID));
 
+      // Gửi yêu cầu tăng lượt xem
+      incrementPostView(post.PostID);
+
       return postElement;
+    }
+
+    // Tăng lượt xem bài viết
+    async function incrementPostView(postId) {
+      try {
+        await fetch(`/api/posts/${postId}/view`, {
+          method: 'POST',
+          credentials: 'include'
+        });
+      } catch (error) {
+        console.error('Lỗi tăng lượt xem:', error);
+      }
     }
 
     // Toggle hiển thị bình luận
@@ -918,7 +1167,9 @@
       } else {
         if (commentsList.innerHTML === '') {
           try {
-            const response = await fetch(`/api/comments/${postId}`);
+            const response = await fetch(`/api/comments/${postId}`, {
+              credentials: 'include'
+            });
             if (!response.ok) throw new Error('Lỗi tải bình luận');
 
             const comments = await response.json();
@@ -964,17 +1215,17 @@
           <div class="comment-meta" style="font-size:0.8rem;color:#6c757d">${commentDate}</div>
           <div class="comment-content" id="comment-content-${comment.CommentID}">${comment.Content}</div>
         </div>
-        ${isAuthor ? `
-          <div class="options-menu">
-            <button class="options-btn" onclick="toggleOptionsMenu('comment-options-${comment.CommentID}')">
-              <i class="fas fa-ellipsis-h"></i>
-            </button>
-            <div class="options-dropdown" id="comment-options-${comment.CommentID}">
+        <div class="options-menu">
+          <button class="options-btn" onclick="toggleOptionsMenu('comment-options-${comment.CommentID}')">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <div class="options-dropdown" id="comment-options-${comment.CommentID}">
+            ${isAuthor ? `
               <a href="#" class="options-item" onclick="editComment(${comment.CommentID}, ${comment.PostID}); return false;">Sửa</a>
-              <a href="#" class="options-item delete" onclick="deleteComment(${comment.CommentID}, ${comment.PostID}); return false;">Xóa</a>
-            </div>
+            ` : ''}
+            <a href="#" class="options-item delete" id="delete-comment-${comment.CommentID}" onclick="deleteComment(${comment.CommentID}, ${comment.PostID}, '${comment.Department}'); return false;">Xóa</a>
           </div>
-        ` : ''}
+        </div>
       `;
 
       return commentElement;
@@ -1003,6 +1254,33 @@
         });
       }
     });
+
+    // Thích bài viết
+    async function toggleLike(postId) {
+      try {
+        const likeBtn = document.querySelector(`.like-btn[data-post-id="${postId}"]`);
+        const isCurrentlyLiked = likeBtn.classList.contains('liked');
+        const likeStatus = !isCurrentlyLiked; // Nếu đã like thì bỏ like, nếu chưa thì like
+
+        const response = await fetch(`/api/posts/${postId}/like-dislike`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ likeStatus }),
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          throw new Error(await response.text());
+        }
+
+        const data = await response.json();
+        likeBtn.classList.toggle('liked', data.userLikeStatus === true);
+        likeBtn.querySelector('span').textContent = `Thích (${data.likes})`;
+      } catch (error) {
+        console.error('Lỗi:', error);
+        alert('Lỗi khi thích bài viết: ' + error.message);
+      }
+    }
 
     // Sửa bài viết
     function editPost(postId) {
@@ -1050,6 +1328,7 @@
         contentElement.innerHTML = `
           <h3 id="post-title-${postId}">${updatedPost.Title}</h3>
           <p id="post-body-${postId}">${updatedPost.Content}</p>
+          ${updatedPost.ImageURL ? `<img src="/uploads/${updatedPost.ImageURL}" alt="Post Image" class="post-image">` : ''}
         `;
       } catch (error) {
         console.error('Lỗi:', error);
@@ -1067,35 +1346,71 @@
     }
 
     // Xóa bài viết
-    async function deletePost(postId) {
-      if (!confirm('Bạn có chắc chắn muốn xóa bài viết này?')) return;
+    async function deletePost(postId, department) {
+      if (currentUser.Role === 'Manager' && currentUser.Department === department) {
+        if (!confirm('Bạn có chắc chắn muốn xóa bài viết này?')) return;
 
-      try {
-        const response = await fetch(`/api/posts/${postId}`, {
-          method: 'DELETE',
-          credentials: 'include'
-        });
+        try {
+          const response = await fetch(`/api/posts/${postId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+          });
 
-        if (!response.ok) {
-          throw new Error(await response.text());
+          if (!response.ok) {
+            throw new Error(await response.text());
+          }
+
+          const postElement = document.querySelector(`.post[data-post-id="${postId}"]`);
+          postElement.remove();
+
+          totalPosts--;
+          if (currentPage > Math.ceil(totalPosts / postsPerPage)) {
+            currentPage = Math.max(1, currentPage - 1);
+          }
+          loadPosts();
+          alert('Xóa bài viết thành công');
+        } catch (error) {
+          console.error('Lỗi:', error);
+          alert('Lỗi khi xóa bài viết: ' + error.message);
+        }
+      } else {
+        if (deleteRequests.has(`post-${postId}`)) {
+          alert('Yêu cầu xóa bài viết này đang chờ xử lý');
+          return;
         }
 
-        const postElement = document.querySelector(`.post[data-post-id="${postId}"]`);
-        postElement.remove();
+        try {
+          const response = await fetch('/api/delete-request', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              postId: postId,
+              commentId: null,
+              requesterId: currentUser.UserID,
+              department: currentUser.Department
+            }),
+            credentials: 'include'
+          });
 
-        const postsContainer = document.getElementById('postsContainer');
-        if (!postsContainer.children.length) {
-          postsContainer.innerHTML = `
-            <div style="text-align: center; padding: 3rem; color: var(--dark);">
-              <i class="fas fa-comment-slash" style="font-size: 3rem; opacity: 0.5; margin-bottom: 1rem;"></i>
-              <h3>Chưa có bài viết nào</h3>
-              <p>Hãy là người đầu tiên đăng bài!</p>
-            </div>
-          `;
+          if (!response.ok) {
+            throw new Error(await response.text());
+          }
+
+          deleteRequests.set(`post-${postId}`, true);
+          const deleteBtn = document.getElementById(`delete-post-${postId}`);
+          deleteBtn.textContent = 'Đã gửi yêu cầu xóa';
+          deleteBtn.classList.add('disabled');
+          deleteBtn.onclick = (e) => {
+            e.preventDefault();
+            alert('Yêu cầu xóa đang chờ xử lý');
+          };
+          alert('Yêu cầu xóa đã được gửi đến trưởng phòng');
+        } catch (error) {
+          console.error('Lỗi:', error);
+          alert('Lỗi khi gửi yêu cầu xóa: ' + error.message);
         }
-      } catch (error) {
-        console.error('Lỗi:', error);
-        alert('Lỗi khi xóa bài viết: ' + error.message);
       }
     }
 
@@ -1150,36 +1465,78 @@
     }
 
     // Xóa bình luận
-    async function deleteComment(commentId, postId) {
-      if (!confirm('Bạn có chắc chắn muốn xóa bình luận này?')) return;
+    async function deleteComment(commentId, postId, department) {
+      if (currentUser.Role === 'Manager' && currentUser.Department === department) {
+        if (!confirm('Bạn có chắc chắn muốn xóa bình luận này?')) return;
 
-      try {
-        const response = await fetch(`/api/comments/${commentId}`, {
-          method: 'DELETE',
-          credentials: 'include'
-        });
+        try {
+          const response = await fetch(`/api/comments/${commentId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+          });
 
-        if (!response.ok) {
-          throw new Error(await response.text());
+          if (!response.ok) {
+            throw new Error(await response.text());
+          }
+
+          const commentElement = document.querySelector(`.comment[data-comment-id="${commentId}"]`);
+          commentElement.remove();
+
+          const commentsList = document.getElementById(`comments-list-${postId}`);
+          if (!commentsList.children.length) {
+            commentsList.innerHTML = '<div class="no-comments">Chưa có bình luận nào</div>';
+          }
+
+          const commentBtn = document.querySelector(`.comment-toggle-btn[data-post-id="${postId}"]`);
+          if (commentBtn) {
+            const countSpan = commentBtn.querySelector('span');
+            const currentCount = parseInt(countSpan.textContent.match(/\d+/)[0]) || 0;
+            countSpan.textContent = `Bình luận (${currentCount - 1})`;
+          }
+
+          alert('Xóa bình luận thành công');
+        } catch (error) {
+          console.error('Lỗi:', error);
+          alert('Lỗi khi xóa bình luận: ' + error.message);
+        }
+      } else {
+        if (deleteRequests.has(`comment-${commentId}`)) {
+          alert('Yêu cầu xóa bình luận này đang chờ xử lý');
+          return;
         }
 
-        const commentElement = document.querySelector(`.comment[data-comment-id="${commentId}"]`);
-        commentElement.remove();
+        try {
+          const response = await fetch('/api/delete-request', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              postId: null,
+              commentId: commentId,
+              requesterId: currentUser.UserID,
+              department: currentUser.Department
+            }),
+            credentials: 'include'
+          });
 
-        const commentsList = document.getElementById(`comments-list-${postId}`);
-        if (!commentsList.children.length) {
-          commentsList.innerHTML = '<div class="no-comments">Chưa có bình luận nào</div>';
-        }
+          if (!response.ok) {
+            throw new Error(await response.text());
+          }
 
-        const commentBtn = document.querySelector(`.comment-toggle-btn[data-post-id="${postId}"]`);
-        if (commentBtn) {
-          const countSpan = commentBtn.querySelector('span');
-          const currentCount = parseInt(countSpan.textContent.match(/\d+/)[0]) || 0;
-          countSpan.textContent = `Bình luận (${currentCount - 1})`;
+          deleteRequests.set(`comment-${commentId}`, true);
+          const deleteBtn = document.getElementById(`delete-comment-${commentId}`);
+          deleteBtn.textContent = 'Đã gửi yêu cầu xóa';
+          deleteBtn.classList.add('disabled');
+          deleteBtn.onclick = (e) => {
+            e.preventDefault();
+            alert('Yêu cầu xóa đang chờ xử lý');
+          };
+          alert('Yêu cầu xóa đã được gửi đến trưởng phòng');
+        } catch (error) {
+          console.error('Lỗi:', error);
+          alert('Lỗi khi gửi yêu cầu xóa: ' + error.message);
         }
-      } catch (error) {
-        console.error('Lỗi:', error);
-        alert('Lỗi khi xóa bình luận: ' + error.message);
       }
     }
 
@@ -1187,6 +1544,7 @@
     async function createPost() {
       const title = document.getElementById('postTitle').value.trim();
       const content = document.getElementById('postContent').value.trim();
+      const imageFile = document.getElementById('postImage').files[0];
 
       if (!title || !content) {
         alert('Vui lòng nhập tiêu đề và nội dung');
@@ -1199,12 +1557,30 @@
       btn.disabled = true;
 
       try {
+        let imageURL = null;
+        if (imageFile) {
+          const formData = new FormData();
+          formData.append('file', imageFile);
+          const uploadResponse = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+          });
+
+          if (!uploadResponse.ok) {
+            throw new Error('Lỗi upload hình ảnh');
+          }
+
+          const uploadResult = await uploadResponse.json();
+          imageURL = uploadResult.fileName;
+        }
+
         const response = await fetch('/api/posts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ title, content }),
+          body: JSON.stringify({ title, content, imageURL }),
           credentials: 'include'
         });
 
@@ -1213,16 +1589,13 @@
         }
 
         const data = await response.json();
-        const container = document.getElementById('postsContainer');
-        const postElement = createPostElement(data.post);
-
-        if (container.firstChild?.classList?.contains('no-posts')) {
-          container.innerHTML = '';
-        }
-
-        container.insertBefore(postElement, container.firstChild);
+        totalPosts++;
+        currentPage = 1;
+        loadPosts();
         document.getElementById('postTitle').value = '';
         document.getElementById('postContent').value = '';
+        document.getElementById('postImage').value = '';
+        document.getElementById('postImagePreview').style.display = 'none';
       } catch (error) {
         console.error('Lỗi:', error);
         alert('Lỗi khi đăng bài: ' + error.message);
@@ -1330,6 +1703,134 @@
         `;
         container.appendChild(blogPostElement);
       });
+    }
+
+    // Hiển thị phân trang
+    function renderPagination() {
+      const totalPages = Math.ceil(totalPosts / postsPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      if (totalPages <= 1) return;
+
+      // Nút Previous
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-btn';
+      prevBtn.textContent = 'Trước';
+      prevBtn.classList.toggle('disabled', currentPage === 1);
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          loadPosts();
+        }
+      });
+      pagination.appendChild(prevBtn);
+
+      // Các nút số trang
+      for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = 'page-btn';
+        pageBtn.classList.toggle('active', i === currentPage);
+        pageBtn.textContent = i;
+        pageBtn.addEventListener('click', () => {
+          currentPage = i;
+          loadPosts();
+        });
+        pagination.appendChild(pageBtn);
+      }
+
+      // Nút Next
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-btn';
+      nextBtn.textContent = 'Sau';
+      nextBtn.classList.toggle('disabled', currentPage === totalPages);
+      nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          loadPosts();
+        }
+      });
+      pagination.appendChild(nextBtn);
+    }
+
+    // Tải danh sách yêu cầu xóa
+    async function loadDeleteRequests() {
+      if (currentUser.Role !== 'Manager') {
+        window.location.href = '/forum';
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/delete-requests', {
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          throw new Error('Lỗi tải danh sách yêu cầu xóa');
+        }
+
+        const requests = await response.json();
+        renderDeleteRequests(requests);
+      } catch (error) {
+        console.error('Lỗi:', error);
+        document.getElementById('postsContainer').innerHTML = `
+          <div class="error" style="text-align: center; padding: 2rem; color: var(--danger);">
+            <i class="fas fa-exclamation-triangle"></i> ${error.message}
+          </div>
+        `;
+      }
+    }
+
+    // Hiển thị danh sách yêu cầu xóa
+    function renderDeleteRequests(requests) {
+      const container = document.getElementById('postsContainer');
+      container.innerHTML = `
+        <div class="delete-requests">
+          <h2 style="color: var(--primary); margin-bottom: 1rem;">Danh sách yêu cầu xóa nội dung</h2>
+          <div class="requests-list">
+            ${requests.length === 0 ? '<p>Không có yêu cầu nào</p>' : 
+              requests.map(request => `
+                <div class="request-item">
+                  <div class="request-info">
+                    <p><strong>Người yêu cầu:</strong> ${request.requesterName}</p>
+                    <p><strong>Loại nội dung:</strong> ${request.postId ? 'Bài viết' : 'Bình luận'}</p>
+                    <p><strong>ID:</strong> ${request.postId || request.commentId}</p>
+                    <p><strong>Thời gian:</strong> ${new Date(request.createdAt).toLocaleString('vi-VN')}</p>
+                  </div>
+                  <div class="request-actions">
+                    <button class="approve-btn" data-request-id="${request.id}" onclick="handleDeleteRequest(${request.id}, 'approve')">Phê duyệt</button>
+                    <button class="reject-btn" data-request-id="${request.id}" onclick="handleDeleteRequest(${request.id}, 'reject')">Từ chối</button>
+                  </div>
+                </div>
+              `).join('')
+            }
+          </div>
+        </div>
+      `;
+    }
+
+    // Xử lý yêu cầu xóa
+    async function handleDeleteRequest(requestId, action) {
+      try {
+        const response = await fetch(`/api/delete-request/${requestId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ action }),
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          throw new Error(`Lỗi khi ${action === 'approve' ? 'phê duyệt' : 'từ chối'} yêu cầu`);
+        }
+
+        alert(`${action === 'approve' ? 'Phê duyệt' : 'Từ chối'} yêu cầu thành công`);
+        loadDeleteRequests();
+      } catch (error) {
+        console.error('Lỗi:', error);
+        alert('Lỗi: ' + error.message);
+      }
     }
 
     // Đăng xuất
